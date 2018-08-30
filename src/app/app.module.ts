@@ -12,6 +12,9 @@ import { PagesModule } from './pages/pages.module';
 //ROUTES
 import { APP_ROUTES } from './app.routes';
 
+//SERVICES
+import { ServiceModule } from './services//service.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +22,7 @@ import { APP_ROUTES } from './app.routes';
     RegisterComponent,
   ],
   imports: [
-    BrowserModule, APP_ROUTES, PagesModule, FormsModule
+    BrowserModule, APP_ROUTES, PagesModule, FormsModule, ServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
