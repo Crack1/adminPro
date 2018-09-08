@@ -32,8 +32,8 @@ Son funciones a las cuales podemos suscribirnos en multiples lugares
 /*rxjs reactive extensions*/
  Observable() solo devuelve un objeto de tipo observer
 
-
-
+/*Los GUARDS SON PARA PROTEJER RUTAS*/
+ ng g g services/guards/loginGuard --spec=false
 
 
 jantem28
