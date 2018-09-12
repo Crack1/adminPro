@@ -19,10 +19,8 @@ export class SettingsService {
   cargarAjustes() {
     if (localStorage.getItem('ajustes')) {
       this.ajustes = JSON.parse(localStorage.getItem('ajustes'))
-      console.log(`Usando tema nuevo`)
       this.aplicarTema(this.ajustes.tema)
     } else {
-      console.log(`usando valores por defecto`)
       this.aplicarTema(this.ajustes.tema)
     }
   }

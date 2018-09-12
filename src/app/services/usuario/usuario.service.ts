@@ -5,6 +5,7 @@ import { URL_SERVICIOS } from '../../config/config';
 import { map } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,7 @@ export class UsuarioService {
 
   usuario: Usuario
   token: string
-  constructor(public http: HttpClient, public router: Router) {
-    console.log(`Servicio de usuario funcionando`)
+  constructor(public http: HttpClient, public router: Router, public _SAS: SubirArchivoService) {
     this.cargarStorage()
   }
 
@@ -27,7 +27,6 @@ export class UsuarioService {
       this.token = localStorage.getItem('token')
       this.usuario = JSON.parse(localStorage.getItem('usuario'))
     } else {
-      console.log(`BLOQUEADO POR EL GUARD`)
       this.token = ''
       this.usuario = null
     }
@@ -85,5 +84,36 @@ export class UsuarioService {
         return resp.usuario
       })
     )
+  }
+  actualizarUsuario(usuario: Usuario) {
+    let url = URL_SERVICIOS + '/usuario/' + usuario._id
+    url += '?token=' + this.token
+    return this.http.put(url, usuario)
+      .pipe(map((res: any) => {
+        this.guardarStorage(res.usuario._id, this.token, res.usuario)
+        swal({
+          title: 'Usuario Actualizado',
+          text: 'El usuario ' + this.usuario.nombre + ' a sido actualizado correctamente',
+          type: 'success',
+          confirmButtonText: 'Aceptar'
+        })
+        return true
+      }))
+  }
+  cambiarImagen(archivo: File, id: string) {
+    this._SAS.subirArchivo(archivo, 'usuarios', id)
+      .then((res: any) => {
+        this.usuario.img = res.usuario.img
+        swal({
+          title: 'Imagen usuario Actualizada',
+          text: 'La imagen a sido actualizada correctamente',
+          type: 'success',
+          confirmButtonText: 'Aceptar'
+        })
+        this.guardarStorage(id, this.token, this.usuario)
+      })
+      .catch(res => {
+        console.log(res)
+      })
   }
 }
