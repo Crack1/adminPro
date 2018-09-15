@@ -90,7 +90,12 @@ export class UsuarioService {
     url += '?token=' + this.token
     return this.http.put(url, usuario)
       .pipe(map((res: any) => {
-        this.guardarStorage(res.usuario._id, this.token, res.usuario)
+
+        if (usuario._id === this.usuario._id) {
+          this.guardarStorage(res.usuario._id, this.token, res.usuario)
+        }
+
+
         swal({
           title: 'Usuario Actualizado',
           text: 'El usuario ' + this.usuario.nombre + ' a sido actualizado correctamente',
@@ -115,5 +120,28 @@ export class UsuarioService {
       .catch(res => {
         console.log(res)
       })
+  }
+  cargarUsuarios(desde: number = 0) {
+    let url = URL_SERVICIOS + '/usuario?desde=' + desde
+    return this.http.get(url)
+  }
+  buscarUsuarios(termino: string) {
+    let url = URL_SERVICIOS + '/busqueda/coleccion/usuario/' + termino
+    return this.http.get(url)
+      .pipe(map((res: any) => {
+        return { usuarios: res.usuarios, total: res.total }
+      }))
+  }
+  borrarUsuario(id: string) {
+    let url = URL_SERVICIOS + '/usuario/' + id + '?token=' + this.token
+    return this.http.delete(url)
+      .pipe(map((res) => {
+        swal(
+          'Borrado!',
+          'El Usuario a sido borrado.',
+          'success'
+        )
+        return true
+      }))
   }
 }

@@ -1,0 +1,26 @@
+<div class="fondo-negro animated fadeIn" [ngClass]="_MUS.oculto">
+
+
+  <div class="modal" tabindex="-1" role="dialog" style="display: block">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cargar Imagen</h5>
+          <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" align="center">
+          <img *ngIf="!imagenTemporal" [src]="'xxx'| imagen" class="w150">
+          <img *ngIf="imagenTemporal" [src]="imagenTemporal" class="w150">
+          <input (change)="seleccionImagen($event.target.files[0])" type="file" name="" id="">
+        </div>
+        <div class="modal-footer">
+          <button (click)="subirImagen()" [disabled]="!imagenTemporal" type="button" class="btn btn-secondary">Subir Imagen</button>
+          <button (click)="cerrarModal()" type="button" class="btn btn-primary">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
