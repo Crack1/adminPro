@@ -9,7 +9,7 @@ export class SubirArchivoService {
   constructor() { }
 
   subirArchivo(archivo: File, tipo: string, id: string) {
-    console.log(archivo)
+
     return new Promise((resolve, reject) => {
       let formData = new FormData
       let xhr = new XMLHttpRequest
@@ -17,7 +17,6 @@ export class SubirArchivoService {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            console.log(`Imagen subida`)
             resolve(JSON.parse(xhr.response))
           } else {
             console.log(`Fallo la subida`)
