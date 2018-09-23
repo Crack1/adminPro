@@ -25,6 +25,7 @@ import { ModalUploadsComponent } from '../components/modal-uploads/modal-uploads
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { MedicoComponent } from './medicos/medico.component';
     HospitalesComponent,
     MedicosComponent,
     MedicoComponent,
+    BusquedaComponent,
   ],
   exports: [
     PagesComponent,

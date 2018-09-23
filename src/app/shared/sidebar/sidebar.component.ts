@@ -10,10 +10,12 @@ import { Usuario } from '../../models/usuario.model';
 })
 export class SidebarComponent implements OnInit {
   usuario: Usuario
+  sidebar: any[] = []
   constructor(public _sidebar: SidebarService, public _US: UsuarioService) { }
 
   ngOnInit() {
     this.usuario = this._US.usuario
+    this._sidebar.cargarMenu()
   }
 
 }
