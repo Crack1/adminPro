@@ -20,6 +20,26 @@ export class UsuarioService {
     this.cargarStorage()
   }
 
+  renuevaToken() {
+    let url = URL_SERVICIOS + '/login/renuevatoken'
+    url += '?token=' + this.token
+    return this.http.get(url)
+      .pipe(map((res: any) => {
+        this.token = res.token
+        localStorage.setItem('token', this.token)
+        return true
+      }), catchError((err) => {
+        this.router.navigate(['/login'])
+        swal({
+          title: 'ERROR',
+          text: 'No se puede generar token',
+          type: 'success',
+          confirmButtonText: 'Aceptar'
+        })
+        return Observable.throw(err)
+      }))
+  }
+
   estaLogeado() {
     return (this.token.length > 5) ? true : false
   }

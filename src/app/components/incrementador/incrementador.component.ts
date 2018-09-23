@@ -30,7 +30,7 @@ export class IncrementadorComponent {
     this.txtProgress.nativeElement.focus()
   }
 
-  actualizar(valor: number) {
+  cambiarValor(valor: number) {
     console.log(valor)
     if (valor >= 0 && valor <= 100) {
       this.cambioValor.emit(valor)
